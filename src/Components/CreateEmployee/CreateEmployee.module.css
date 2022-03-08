@@ -1,15 +1,124 @@
 .create-section {
-
+  width: 90%;
+  margin: 3rem auto;
+  background-color: var(--darkGray);
+  color: var(--white);
+  border-radius: .5rem;
 }
 
 .create-title {
+  padding: 2rem;
+  margin: 0;
+  font-size: 2rem;
+  width: fit-content;
+}
 
+.create-title:after {
+  display: block;
+  content: "";
+  border-bottom: 2px solid var(--blue);
+  width: 35%;
+  height: 2px;
+  margin-top: .2rem;
+  margin-left: auto;
 }
 
 .create-form {
-
+  padding: 0 1rem 3rem;
 }
 
 .create-form__div {
+  background-color: var(--lightGray);
+  margin-top: 2rem;
+  padding: .5rem 1rem;
+  border-radius:  1rem;
+}
 
+.create-form__div > label,
+.create-form__div > fieldset > label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue);
+  opacity: .7;
+}
+
+.create-form__div > input,
+.create-form__div > fieldset > input {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  width: 100%;
+  padding: 1rem 0;
+  color: var(--white);
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.select {
+  display: flex;
+  width: 100%;
+  border: none;
+  background-color: var(--lightGray);
+  color: var(--white);
+  font-size: 1rem;
+  padding: .5rem .5rem;
+  margin: 1rem auto .5rem -3px;
+}
+
+.select:focus {
+  outline: 1px solid var(--blue);
+}
+
+.create-form__div > input:focus,
+.create-form__div > fieldset > input:focus {
+  border-bottom: 1px solid var(--blue);
+  margin-bottom: -1px;
+  outline: none;
+}
+
+.create-form__div > input:hover {
+  border-bottom: 1px solid var(--blue);
+  margin-bottom: -1px;
+}
+
+.create-form__div > fieldset {
+  position: relative;
+  border: none;
+  padding: .5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.create-form__div > fieldset > legend {
+  color: var(--blue);
+  opacity: .7;
+  font-size: 18px;
+  margin-bottom: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(0, -2.3rem);
+}
+
+.create-form__btn {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  color: var(--white);
+  background-color: rgba(32, 141, 235, .5);
+  /*background*/
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  transition: all 200ms ease-in-out;
+  border-radius: .5rem;
+}
+
+.create-form__btn:hover {
+  background-color: rgba(32, 141, 235, 1);
 }

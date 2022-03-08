@@ -1,3 +1,19 @@
+:root {
+  --darkGray: #292b3c;
+  --lightGray: rgba(80, 83, 96, 0.2);
+  --blue: #208deb;
+  --white: #f4f4f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+  max-width: 1440px;
+  margin: auto;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,7 +23,5 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+
+

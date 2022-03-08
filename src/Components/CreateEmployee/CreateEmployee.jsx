@@ -96,6 +96,7 @@ const CreateEmployee = () => {
             />
             <label htmlFor="state">State</label>
             <select
+              className={classes.select}
               name="state"
               id="state"
               required
@@ -115,6 +116,7 @@ const CreateEmployee = () => {
         <div className={`${classes['create-form__div']}`}>
           <label htmlFor="department">Department</label>
           <select
+            className={classes.select}
             name="department"
             id="department"
             required
