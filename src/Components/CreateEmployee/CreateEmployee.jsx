@@ -140,7 +140,7 @@ const CreateEmployee = () => {
       </form>
 
     </section>
-  );
-};
+  )
+}
 
-export default CreateEmployee;
+export default CreateEmployee

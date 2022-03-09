@@ -25,6 +25,8 @@
 
 .create-form {
   padding: 0 1rem 3rem;
+  max-width: 450px;
+  margin: auto;
 }
 
 .create-form__div {
