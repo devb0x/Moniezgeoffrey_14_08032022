@@ -1,9 +1,10 @@
 .employees-section {
-  width: 100%;
+  width: 90%;
   margin: 3rem auto;
   padding-bottom: 5vh;
   background-color: var(--darkGray);
   color: var(--white);
+  border-radius: .5rem;
 }
 
 .employees-section__title {
@@ -25,18 +26,19 @@
 
 
 .table {
-  width: 90%;
+  width: 95%;
   display: flex;
   flex-direction: column;
 
   outline: 1px solid black;
-  min-width: 900px;
+  /*min-width: 900px;*/
   margin: auto;
 
   background-color: var(--lightGray);
 
   /*border-collapse: collapse;*/
   border-spacing: 1rem 1rem;
+  overflow: scroll;
 }
 
 .table-row__filter {
@@ -51,7 +53,7 @@
 }
 
 .table-row__category {
-  box-shadow: 0 2px 0 0 var(--blue);
+  box-shadow: inset 0 -2px var(--blue);
 }
 
 .table-row__category > th {
@@ -66,4 +68,10 @@
 .table-row > td {
   font-weight: normal;
 }
+
+
+
+/*.createForm__input {*/
+/*  color: red;*/
+/*}*/
 

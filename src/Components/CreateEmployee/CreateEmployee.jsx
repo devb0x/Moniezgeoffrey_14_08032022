@@ -1,8 +1,12 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
+import { useForm } from "react-hook-form"
 
+import Modal from '../../UI/Modal'
 import classes from './CreateEmployee.module.css'
 
-const CreateEmployee = () => {
+const CreateEmployee = (props) => {
+  const [showModal, setShowModal] = useState(false)
+
   const firstnameInputRef = useRef()
   const lastnameInputRef = useRef()
   const birthDateInputRef = useRef()
@@ -13,31 +17,270 @@ const CreateEmployee = () => {
   const zipcodeInputRef = useRef()
   const departmentSelectRef = useRef()
 
-  const submitHandler = (event) => {
-    event.preventDefault()
-    const enteredFirstname = firstnameInputRef.current.value
-    const enteredLastname = lastnameInputRef.current.value
-    const enteredBirthDate = birthDateInputRef.current.value
-    const enteredStartDate = startDateInputRef.current.value
-    const enteredStreet = streetInputRef.current.value
-    const enteredCity = cityInputRef.current.value
-    const enteredState = stateSelectRef.current.value
-    const enteredZipCode = zipcodeInputRef.current.value
-    const enteredDepartment = departmentSelectRef.current.value
+  const { register, handleSubmit } = useForm()
+  // const onSubmit = (data) => {
+  //   console.log(data)
+  //   showModal()
+  // }
+
+  const submitHandler = (data) => {
+    console.log(data)
+    // setShowModal(true)
+    props.displayModal(true)
   }
+
+  const states = [
+    {
+      "name": "Alabama",
+      "abbreviation": "AL"
+    },
+    {
+      "name": "Alaska",
+      "abbreviation": "AK"
+    },
+    {
+      "name": "American Samoa",
+      "abbreviation": "AS"
+    },
+    {
+      "name": "Arizona",
+      "abbreviation": "AZ"
+    },
+    {
+      "name": "Arkansas",
+      "abbreviation": "AR"
+    },
+    {
+      "name": "California",
+      "abbreviation": "CA"
+    },
+    {
+      "name": "Colorado",
+      "abbreviation": "CO"
+    },
+    {
+      "name": "Connecticut",
+      "abbreviation": "CT"
+    },
+    {
+      "name": "Delaware",
+      "abbreviation": "DE"
+    },
+    {
+      "name": "District Of Columbia",
+      "abbreviation": "DC"
+    },
+    {
+      "name": "Federated States Of Micronesia",
+      "abbreviation": "FM"
+    },
+    {
+      "name": "Florida",
+      "abbreviation": "FL"
+    },
+    {
+      "name": "Georgia",
+      "abbreviation": "GA"
+    },
+    {
+      "name": "Guam",
+      "abbreviation": "GU"
+    },
+    {
+      "name": "Hawaii",
+      "abbreviation": "HI"
+    },
+    {
+      "name": "Idaho",
+      "abbreviation": "ID"
+    },
+    {
+      "name": "Illinois",
+      "abbreviation": "IL"
+    },
+    {
+      "name": "Indiana",
+      "abbreviation": "IN"
+    },
+    {
+      "name": "Iowa",
+      "abbreviation": "IA"
+    },
+    {
+      "name": "Kansas",
+      "abbreviation": "KS"
+    },
+    {
+      "name": "Kentucky",
+      "abbreviation": "KY"
+    },
+    {
+      "name": "Louisiana",
+      "abbreviation": "LA"
+    },
+    {
+      "name": "Maine",
+      "abbreviation": "ME"
+    },
+    {
+      "name": "Marshall Islands",
+      "abbreviation": "MH"
+    },
+    {
+      "name": "Maryland",
+      "abbreviation": "MD"
+    },
+    {
+      "name": "Massachusetts",
+      "abbreviation": "MA"
+    },
+    {
+      "name": "Michigan",
+      "abbreviation": "MI"
+    },
+    {
+      "name": "Minnesota",
+      "abbreviation": "MN"
+    },
+    {
+      "name": "Mississippi",
+      "abbreviation": "MS"
+    },
+    {
+      "name": "Missouri",
+      "abbreviation": "MO"
+    },
+    {
+      "name": "Montana",
+      "abbreviation": "MT"
+    },
+    {
+      "name": "Nebraska",
+      "abbreviation": "NE"
+    },
+    {
+      "name": "Nevada",
+      "abbreviation": "NV"
+    },
+    {
+      "name": "New Hampshire",
+      "abbreviation": "NH"
+    },
+    {
+      "name": "New Jersey",
+      "abbreviation": "NJ"
+    },
+    {
+      "name": "New Mexico",
+      "abbreviation": "NM"
+    },
+    {
+      "name": "New York",
+      "abbreviation": "NY"
+    },
+    {
+      "name": "North Carolina",
+      "abbreviation": "NC"
+    },
+    {
+      "name": "North Dakota",
+      "abbreviation": "ND"
+    },
+    {
+      "name": "Northern Mariana Islands",
+      "abbreviation": "MP"
+    },
+    {
+      "name": "Ohio",
+      "abbreviation": "OH"
+    },
+    {
+      "name": "Oklahoma",
+      "abbreviation": "OK"
+    },
+    {
+      "name": "Oregon",
+      "abbreviation": "OR"
+    },
+    {
+      "name": "Palau",
+      "abbreviation": "PW"
+    },
+    {
+      "name": "Pennsylvania",
+      "abbreviation": "PA"
+    },
+    {
+      "name": "Puerto Rico",
+      "abbreviation": "PR"
+    },
+    {
+      "name": "Rhode Island",
+      "abbreviation": "RI"
+    },
+    {
+      "name": "South Carolina",
+      "abbreviation": "SC"
+    },
+    {
+      "name": "South Dakota",
+      "abbreviation": "SD"
+    },
+    {
+      "name": "Tennessee",
+      "abbreviation": "TN"
+    },
+    {
+      "name": "Texas",
+      "abbreviation": "TX"
+    },
+    {
+      "name": "Utah",
+      "abbreviation": "UT"
+    },
+    {
+      "name": "Vermont",
+      "abbreviation": "VT"
+    },
+    {
+      "name": "Virgin Islands",
+      "abbreviation": "VI"
+    },
+    {
+      "name": "Virginia",
+      "abbreviation": "VA"
+    },
+    {
+      "name": "Washington",
+      "abbreviation": "WA"
+    },
+    {
+      "name": "West Virginia",
+      "abbreviation": "WV"
+    },
+    {
+      "name": "Wisconsin",
+      "abbreviation": "WI"
+    },
+    {
+      "name": "Wyoming",
+      "abbreviation": "WY"
+    }
+  ];
 
   return (
     <section className={`${classes['create-section']}`}>
       <h2 className={`${classes['create-title']}`}>Create Employee</h2>
-      <form className={`${classes['create-form']}`}>
+      {/*<form className={`${classes['create-form']}`} onSubmit={handleSubmit(onSubmit)}>*/}
+      <form className={`${classes['create-form']}`} onSubmit={handleSubmit(submitHandler)}>
         <div className={`${classes['create-form__div']}`}>
           <label htmlFor="firstname">First Name</label>
           <input
             type="text"
             id="firstname"
             placeholder="Firstname"
-            required
             ref={firstnameInputRef}
+            {...register("firstname")}
           />
         </div>
 
@@ -49,6 +292,7 @@ const CreateEmployee = () => {
             placeholder="Lastname"
             required
             ref={lastnameInputRef}
+            {...register("lastname")}
           />
         </div>
 
@@ -60,6 +304,7 @@ const CreateEmployee = () => {
             placeholder="Date of Birth"
             required
             ref={birthDateInputRef}
+            {...register("birthDate")}
           />
         </div>
 
@@ -71,6 +316,7 @@ const CreateEmployee = () => {
             placeholder="Date of Start"
             required
             ref={startDateInputRef}
+            {...register("startDate")}
           />
         </div>
 
@@ -85,6 +331,7 @@ const CreateEmployee = () => {
               placeholder="Street"
               required
               ref={streetInputRef}
+              {...register("street")}
             />
             <label htmlFor="city">City</label>
             <input
@@ -93,15 +340,20 @@ const CreateEmployee = () => {
               placeholder="City"
               required
               ref={cityInputRef}
+              {...register("city")}
             />
             <label htmlFor="state">State</label>
-            <select
-              className={classes.select}
-              name="state"
-              id="state"
-              required
-              ref={stateSelectRef}
-            />
+              <select name="state" id="state" className={`${classes['select']}`} required>
+                {states.map(state => (
+                  <option
+                    key={state.name}
+                    value={state.name}
+                    {...register("state")}
+                  >
+                    {state.name}
+                  </option>
+                ))}
+              </select>
             <label htmlFor="zip-code">Zip Code</label>
             <input
               type="number"
@@ -109,6 +361,7 @@ const CreateEmployee = () => {
               placeholder="Zip Code"
               required
               ref={zipcodeInputRef}
+              {...register("zipCode")}
             />
           </fieldset>
         </div>
@@ -116,11 +369,12 @@ const CreateEmployee = () => {
         <div className={`${classes['create-form__div']}`}>
           <label htmlFor="department">Department</label>
           <select
-            className={classes.select}
+            className={`${classes['select']}`}
             name="department"
             id="department"
             required
             ref={departmentSelectRef}
+            {...register("department")}
           >
             <option value="sales">Sales</option>
             <option value="marketing">Marketing</option>
@@ -131,13 +385,19 @@ const CreateEmployee = () => {
         </div>
 
         <button
+          type={'submit'}
           className={`${classes['create-form__btn']}`}
-          onClick={submitHandler}
+          // onClick={submitHandler}
         >
           Save
         </button>
 
       </form>
+
+      {/*<Modal*/}
+      {/*  show={showModal}*/}
+      {/*  close={() => {setShowModal(false)}}*/}
+      {/*/>*/}
 
     </section>
   )

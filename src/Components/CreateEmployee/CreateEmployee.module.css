@@ -4,6 +4,8 @@
   background-color: var(--darkGray);
   color: var(--white);
   border-radius: .5rem;
+
+  position: relative;
 }
 
 .create-title {
