@@ -1,8 +1,24 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 
 import classes from './EmployeesList.module.css'
 
-function EmployeesList() {
+function EmployeesList(props) {
+
+/*   useEffect(() => {
+    // const localData = localStorage.getItem('items')
+    const localData = JSON.parse(localStorage.items)
+    setLocal(localData)
+
+    console.log(localData)
+    console.log(localData.length)
+  }, []) */
+
+  console.log(props.employees)
+
+
+
+
+
   const dataCategory = [
     'First Name', 'Last Name', 'Start Date', 'Department', 'Birth Date', 'Street', 'City', 'State', 'Zip Code'
   ]
@@ -69,6 +85,13 @@ function EmployeesList() {
     },
   ]
 
+ 
+
+  // const localData = localStorage.getItem('items')
+
+
+
+
   return (
     <section className={`${classes['employees-section']}`}>
       <h2 className={`${classes['employees-section__title']}`}>Current Employees</h2>
@@ -95,15 +118,54 @@ function EmployeesList() {
               ))}
             </tr>
 
-            {employeesMock.map(obj => (
+            {props.employees.map(obj => (
               <tr className={`${classes['table-row']}`} key={obj.id}>
-                {Object.entries(obj).slice(1).map(([key, val], i) => {
-                  return (
-                    <th key={i}>
-                      {val}
-                    </th>
-                  )
-                })}
+                {/* ok with mockedData dans l'ordre */}
+                {/*{Object.entries(obj).slice(1).map(([key, val], i) => {*/}
+                {/*  return (*/}
+                {/*    <th key={i}>*/}
+                {/*      {val}*/}
+                {/*    </th>*/}
+                {/*  )*/}
+                {/*})}*/}
+
+                {/*retourne pas dans le bon ordre*/}
+                {/*{Object.entries(obj).map(([key, val], i) => {*/}
+                {/*  return (*/}
+                {/*    <th key={i}>*/}
+                {/*      {val}*/}
+                {/*    </th>*/}
+                {/*  )*/}
+                {/*})}*/}
+
+                <th>
+                  {obj.firstname}
+                </th>
+                <th>
+                  {obj.lastname}
+                </th>
+                <th>
+                  {obj.startDate}
+                </th>
+                <th>
+                  {obj.department}
+                </th>
+                <th>
+                  {obj.startDate}
+                </th>
+                <th>
+                  {obj.street}
+                </th>
+                <th>
+                  {obj.city}
+                </th>
+                <th>
+                  {obj.state}
+                </th>
+                <th>
+                  {obj.zipCode}
+                </th>
+
               </tr>
             ))}
 

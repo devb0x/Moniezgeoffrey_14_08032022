@@ -1,32 +1,15 @@
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useForm } from "react-hook-form"
 
-import Modal from '../../UI/Modal'
 import classes from './CreateEmployee.module.css'
 
 const CreateEmployee = (props) => {
-  const [showModal, setShowModal] = useState(false)
-
-  const firstnameInputRef = useRef()
-  const lastnameInputRef = useRef()
-  const birthDateInputRef = useRef()
-  const startDateInputRef = useRef()
-  const streetInputRef= useRef()
-  const cityInputRef = useRef()
-  const stateSelectRef= useRef()
-  const zipcodeInputRef = useRef()
-  const departmentSelectRef = useRef()
 
   const { register, handleSubmit } = useForm()
-  // const onSubmit = (data) => {
-  //   console.log(data)
-  //   showModal()
-  // }
 
   const submitHandler = (data) => {
-    console.log(data)
-    // setShowModal(true)
     props.displayModal(true)
+    props.setEmployee(data);
   }
 
   const states = [
@@ -268,10 +251,22 @@ const CreateEmployee = (props) => {
     }
   ];
 
+  // useEffect(() => {
+  //   const data = localStorage.getItem('items')
+  //   setItems(prevState => ([...prevState, data]))
+  // }, [])
+
+/*   useEffect(() => {
+    if (localStorage.getItem('items') !== null) {
+      console.log('t es present')
+    localStorage.setItem('items', JSON.stringify(items))
+    }
+  }, [items]) */
+
+
   return (
     <section className={`${classes['create-section']}`}>
       <h2 className={`${classes['create-title']}`}>Create Employee</h2>
-      {/*<form className={`${classes['create-form']}`} onSubmit={handleSubmit(onSubmit)}>*/}
       <form className={`${classes['create-form']}`} onSubmit={handleSubmit(submitHandler)}>
         <div className={`${classes['create-form__div']}`}>
           <label htmlFor="firstname">First Name</label>
@@ -279,7 +274,6 @@ const CreateEmployee = (props) => {
             type="text"
             id="firstname"
             placeholder="Firstname"
-            ref={firstnameInputRef}
             {...register("firstname")}
           />
         </div>
@@ -291,7 +285,6 @@ const CreateEmployee = (props) => {
             id="lastname"
             placeholder="Lastname"
             required
-            ref={lastnameInputRef}
             {...register("lastname")}
           />
         </div>
@@ -303,7 +296,6 @@ const CreateEmployee = (props) => {
             id="birth-date"
             placeholder="Date of Birth"
             required
-            ref={birthDateInputRef}
             {...register("birthDate")}
           />
         </div>
@@ -315,7 +307,6 @@ const CreateEmployee = (props) => {
             id="start-date"
             placeholder="Date of Start"
             required
-            ref={startDateInputRef}
             {...register("startDate")}
           />
         </div>
@@ -330,7 +321,6 @@ const CreateEmployee = (props) => {
               id="street"
               placeholder="Street"
               required
-              ref={streetInputRef}
               {...register("street")}
             />
             <label htmlFor="city">City</label>
@@ -339,7 +329,6 @@ const CreateEmployee = (props) => {
               id="city"
               placeholder="City"
               required
-              ref={cityInputRef}
               {...register("city")}
             />
             <label htmlFor="state">State</label>
@@ -360,7 +349,6 @@ const CreateEmployee = (props) => {
               id="zip-code"
               placeholder="Zip Code"
               required
-              ref={zipcodeInputRef}
               {...register("zipCode")}
             />
           </fieldset>
@@ -373,7 +361,6 @@ const CreateEmployee = (props) => {
             name="department"
             id="department"
             required
-            ref={departmentSelectRef}
             {...register("department")}
           >
             <option value="sales">Sales</option>
@@ -393,11 +380,6 @@ const CreateEmployee = (props) => {
         </button>
 
       </form>
-
-      {/*<Modal*/}
-      {/*  show={showModal}*/}
-      {/*  close={() => {setShowModal(false)}}*/}
-      {/*/>*/}
 
     </section>
   )
