@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import {Link} from "react-router-dom"
 import Header from "../Components/Header/Header"
+import OldEmployeesList from "../Components/EmployeesList/oldEmployeesList"
 import EmployeesList from "../Components/EmployeesList/EmployeesList"
 
 const CurrentEmployees = ({employees}) => {

@@ -8,6 +8,7 @@ const CreateEmployee = (props) => {
   const { register, handleSubmit } = useForm()
 
   const submitHandler = (data) => {
+    console.log(data)
     props.displayModal(true)
     props.setEmployee(data);
   }
@@ -251,19 +252,6 @@ const CreateEmployee = (props) => {
     }
   ];
 
-  // useEffect(() => {
-  //   const data = localStorage.getItem('items')
-  //   setItems(prevState => ([...prevState, data]))
-  // }, [])
-
-/*   useEffect(() => {
-    if (localStorage.getItem('items') !== null) {
-      console.log('t es present')
-    localStorage.setItem('items', JSON.stringify(items))
-    }
-  }, [items]) */
-
-
   return (
     <section className={`${classes['create-section']}`}>
       <h2 className={`${classes['create-title']}`}>Create Employee</h2>
@@ -374,7 +362,6 @@ const CreateEmployee = (props) => {
         <button
           type={'submit'}
           className={`${classes['create-form__btn']}`}
-          // onClick={submitHandler}
         >
           Save
         </button>
