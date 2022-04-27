@@ -1,0 +1,24 @@
+.navbar {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  align-items: center;
+  background-color: var(--darkGray);
+  color: var(--white);
+  border-bottom: 3px solid var(--blue);
+  border-radius: 0 0 .5rem .5rem;
+}
+
+.navbar-title {
+  margin-right: auto;
+  padding-left: 2rem;
+}
+
+.navbar-link {
+  color: var(--white);
+  font-weight: 500;
+  text-decoration: none;
+  padding-right: 2rem;
+  font-size: 20px;
+  letter-spacing: 1px;
+}

@@ -1,4 +1,4 @@
-import React, {Fragment} from "react"
+import React, {useEffect} from "react"
 import classes from './EmployeesList.module.css'
 import {
   useTable,
@@ -10,8 +10,6 @@ import {
 } from "react-table"
 
 const EmployeesList = (props) => {
-
-  // console.warn(props)
   const data = React.useMemo(
     () => props.employees.map(el => ({
         ...el,
@@ -20,9 +18,8 @@ const EmployeesList = (props) => {
 
   const columns = React.useMemo(
   //   By default, the sorting will be alphanumeric. This can be changed in your column
-    //   object. Other options include basic and datetime. Note that if you're
-    //   planning on sorting numbers between 0 and 1, basic sorting will be more accurate.
-
+  //   object. Other options include basic and datetime. Note that if you're
+  //   planning on sorting numbers between 0 and 1, basic sorting will be more accurate.
 
     () => [
       {
@@ -75,20 +72,6 @@ const EmployeesList = (props) => {
     []
   )
 
-  const instance = useTable(
-    {
-      columns,
-      data,
-      initialState: { pageIndex: 0},
-      defaultColumn,
-      // filterTypes
-    },
-    useFilters,
-    useGlobalFilter,
-    useSortBy,
-    usePagination,
-  )
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -104,47 +87,70 @@ const EmployeesList = (props) => {
     previousPage,
     setPageSize,
     state: { pageIndex, pageSize },
-    // filter
-    visibleColumns,
     preGlobalFilteredRows,
     setGlobalFilter,
     state
-  } = useTable(instance)
+  } = useTable({
+      columns,
+      data,
+      initialState: { pageIndex: 0},
+      defaultColumn,
+    },
+    useFilters,
+    useGlobalFilter,
+    useSortBy,
+    usePagination)
 
+  useEffect(() => {
+    setPageSize(8)
+  }, [])
 
-
-
-  // FILTER UI
-  // TODO CHECK HERE FILTER DEBOUNCE / SUBMIT
+  /**
+   * function for filtering data
+   * @param preGlobalFilteredRows
+   * @param globalFilter
+   * @param setGlobalFilter
+   * @returns {JSX.Element}
+   * @constructor
+   */
   function GlobalFilter({
     preGlobalFilteredRows,
     globalFilter,
-    setGlobalFilter,
+    setGlobalFilter
   }) {
     const count = preGlobalFilteredRows.length
     const [value, setValue] = React.useState(globalFilter)
     const onChange = useAsyncDebounce(value => {
       setGlobalFilter(value || undefined)
-    }, 2000)
+    }, 400)
 
     return (
       <span>
-      Search:{' '}
-        <input
-          value={value || ""}
-          onChange={e => {
-            setValue(e.target.value);
-            onChange(e.target.value);
-          }}
-          placeholder={`${count} employees...`}
-          style={{
-            fontSize: '1.1rem'
-          }}
-        />
-    </span>
+        Search:{' '}
+          <input
+            value={value || ""}
+            onChange={e => {
+              setValue(e.target.value);
+              onChange(e.target.value);
+            }}
+            placeholder={`${count} employees...`}
+            style={{
+              fontSize: '1.1rem'
+            }}
+            autoFocus={true}
+          />
+      </span>
     )
   }
 
+  /**
+   * function for rendering the filter
+   * @param filterValue
+   * @param preFilteredRows
+   * @param setFilter
+   * @returns {JSX.Element}
+   * @constructor
+   */
   function DefaultColumnFilter({
     column: { filterValue, preFilteredRows, setFilter }
   }) {
@@ -161,82 +167,38 @@ const EmployeesList = (props) => {
     )
   }
 
-  // This is a custom filter UI for selecting
-// a unique option from a list
-  function SelectColumnFilter({
-    column: { filterValue, setFilter, preFilteredRows, id },
-  }) {
-    // Calculate the options for filtering
-    // using the preFilteredRows
-    const options = React.useMemo(() => {
-      const options = new Set()
-      preFilteredRows.forEach(row => {
-        options.add(row.values[id])
-      })
-      return [...options.values()]
-    }, [id, preFilteredRows])
-
-    // Render a multi-select box
-    return (
-      <select
-        value={filterValue}
-        onChange={e => {
-          setFilter(e.target.value || undefined)
-        }}
-      >
-        <option value="">All</option>
-        {options.map((option, i) => (
-          <option key={i} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    )
-  }
-
-
-
-
-
-
-
-
-
-
-  // global return below
   return (
     <section className={`${classes['employees-section']}`}>
       <h2 className={`${classes['employees-section__title']}`}>Current Employees</h2>
 
       <table {...getTableProps()} className={`${classes['table']}`}>
-        <div className={`${classes['table-row__filter']}`}>
-          <div style={{display: 'flex', alignItems: 'center'}}>
+
+        <thead style={{display: 'table-header-group'}}>
+        <tr className={`${classes['table-row__filter']}`} role={"row"}>
+          <th style={{display: 'flex', alignItems: 'center', width: '40%', marginRight: 'auto'}}>
             Show
             <select
+              className={classes['select-entries']}
               value={pageSize}
               onChange={e => {
                 setPageSize(Number(e.target.value))
               }}
             >
-              {/*{[10, 20, 30, 40, 50].map(pageSize => (*/}
-              {[5, 3, 20, 50].map(pageSize => (
-                <option key={pageSize} value={pageSize}>
+              {[5, 8, 20, 50].map(pageSize => (
+                <option key={pageSize} value={pageSize} >
                   {pageSize}
                 </option>
               ))}
             </select> entries
-          </div>
-          <div>
+          </th>
+          <th style={{display: 'flex', alignItems: 'center', width: '40%', marginLeft: 'auto'}}>
             <GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
               globalFilter={state.globalFilter}
               setGlobalFilter={setGlobalFilter}
             />
-          </div>
-        </div>
-        <hr style={{width: '100%', opacity: '.5', marginTop: '0'}}/>
-
-        <thead style={{display: 'table'}}>
+          </th>
+        </tr>
         {// Loop over the header rows
           headerGroups.map(headerGroup => (
             // Apply the header row props
@@ -244,8 +206,6 @@ const EmployeesList = (props) => {
               {// Loop over the headers in each row
                 headerGroup.headers.map(column => (
                   // Apply the header cell props
-                  // <th {...column.getHeaderProps()}>
-                  // <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                     {// Render the header
                       column.render('Header')}
@@ -256,7 +216,6 @@ const EmployeesList = (props) => {
                 ))}
             </tr>
           ))}
-
 
         </thead>
         {/* Apply the table body props */}
@@ -283,7 +242,7 @@ const EmployeesList = (props) => {
           })}
         </tbody>
       </table>
-      <div className="pagination">
+      <div className={`${classes['pagination']}`}>
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
           {'<<'}
         </button>{' '}

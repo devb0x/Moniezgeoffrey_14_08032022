@@ -1,18 +1,14 @@
-import React, {useEffect, useState} from 'react'
-import { useForm } from "react-hook-form"
+import React from 'react'
+import { Controller, useForm } from "react-hook-form"
+
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
+import {format, getMonth, getYear} from 'date-fns'
+import range from "lodash/range"
 
 import classes from './CreateEmployee.module.css'
 
 const CreateEmployee = (props) => {
-
-  const { register, handleSubmit } = useForm()
-
-  const submitHandler = (data) => {
-    console.log(data)
-    props.displayModal(true)
-    props.setEmployee(data);
-  }
-
   const states = [
     {
       "name": "Alabama",
@@ -252,6 +248,101 @@ const CreateEmployee = (props) => {
     }
   ];
 
+  const { register, handleSubmit, control } = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      birthDate: '',
+      city: '',
+      department: 'sales',
+      firstname: '',
+      lastname: '',
+      startDate: '',
+      state: 'Alabama',
+      street: '',
+      zipCode: ''
+    }
+  })
+
+  const submitHandler = (data) => {
+    const date1 = format(data.birthDate, 'yyyy-MM-dd')
+    const date2 = format(data.startDate, 'yyyy-MM-dd')
+    props.setEmployee({...data, birthDate: date1, startDate: date2})
+    props.displayModal(true)
+  }
+
+  const CustomDatePicker = (props) => {
+    const years = range(1990, getYear(new Date()) + 1, 1);
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ]
+    return (
+      <DatePicker
+        className={`${classes['datepicker']}`}
+        todayButton="Today"
+        renderCustomHeader={({
+           date,
+           changeYear,
+           changeMonth,
+           decreaseMonth,
+           increaseMonth,
+           prevMonthButtonDisabled,
+           nextMonthButtonDisabled,
+       }) => (
+          <div
+            style={{
+              margin: 10,
+              display: "flex",
+              justifyContent: "space-around",
+            }}
+          >
+            <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
+              {"<"}
+            </button>
+            <select
+              value={months[getMonth(date)]}
+              onChange={({ target: { value } }) =>
+                changeMonth(months.indexOf(value))
+              }
+            >
+              {months.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={getYear(date)}
+              onChange={({ target: { value } }) => changeYear(value)}
+            >
+              {years.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+
+            <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
+              {">"}
+            </button>
+          </div>
+        )}
+        {...props}
+      />
+    )
+  }
+
   return (
     <section className={`${classes['create-section']}`}>
       <h2 className={`${classes['create-title']}`}>Create Employee</h2>
@@ -259,6 +350,7 @@ const CreateEmployee = (props) => {
         <div className={`${classes['create-form__div']}`}>
           <label htmlFor="firstname">First Name</label>
           <input
+            data-testid={"firstname"}
             type="text"
             id="firstname"
             placeholder="Firstname"
@@ -269,6 +361,7 @@ const CreateEmployee = (props) => {
         <div className={`${classes['create-form__div']}`}>
           <label htmlFor="lastname">Last Name</label>
           <input
+            data-testid={"lastname"}
             type="text"
             id="lastname"
             placeholder="Lastname"
@@ -279,32 +372,48 @@ const CreateEmployee = (props) => {
 
         <div className={`${classes['create-form__div']}`}>
           <label htmlFor="birth-date">Date of Birth</label>
-          <input
-            type="date"
-            id="birth-date"
-            placeholder="Date of Birth"
-            required
-            {...register("birthDate")}
+          <Controller
+            name="birthDate"
+            control={control}
+            render={({ field }) => {
+              return (
+                <CustomDatePicker
+                  onChange={(date) => {
+                    return field.onChange(date);
+                  }}
+                  selected={field.value}
+                  placeholderText="mm/dd/yyyy"
+                />
+              )
+            }}
           />
         </div>
 
         <div className={`${classes['create-form__div']}`}>
           <label htmlFor="start-date">Date of Start</label>
-          <input
-            type="date"
-            id="start-date"
-            placeholder="Date of Start"
-            required
-            {...register("startDate")}
+          <Controller
+            name="startDate"
+            control={control}
+            render={({ field }) => {
+              return (
+                <CustomDatePicker
+                  onChange={(date) => {
+                    return field.onChange(date);
+                  }}
+                  selected={field.value}
+                  placeholderText="mm/dd/yyyy"
+                />
+              )
+            }}
           />
         </div>
 
         <div className={`${classes['create-form__div']}`}>
           <fieldset>
             <legend>Address</legend>
-
             <label htmlFor="street">Street</label>
             <input
+              data-testid={"street"}
               type="text"
               id="street"
               placeholder="Street"
@@ -313,6 +422,7 @@ const CreateEmployee = (props) => {
             />
             <label htmlFor="city">City</label>
             <input
+              data-testid={"city"}
               type="text"
               id="city"
               placeholder="City"
@@ -320,7 +430,12 @@ const CreateEmployee = (props) => {
               {...register("city")}
             />
             <label htmlFor="state">State</label>
-              <select name="state" id="state" className={`${classes['select']}`} required>
+              <select
+                data-testid={"state"}
+                name="state" id="state"
+                className={`${classes['select']}`}
+                required
+              >
                 {states.map(state => (
                   <option
                     key={state.name}
@@ -333,6 +448,7 @@ const CreateEmployee = (props) => {
               </select>
             <label htmlFor="zip-code">Zip Code</label>
             <input
+              data-testid={"zipcode"}
               type="number"
               id="zip-code"
               placeholder="Zip Code"
@@ -345,6 +461,7 @@ const CreateEmployee = (props) => {
         <div className={`${classes['create-form__div']}`}>
           <label htmlFor="department">Department</label>
           <select
+            data-testid={"department"}
             className={`${classes['select']}`}
             name="department"
             id="department"
@@ -360,6 +477,7 @@ const CreateEmployee = (props) => {
         </div>
 
         <button
+          data-testid={"button"}
           type={'submit'}
           className={`${classes['create-form__btn']}`}
         >

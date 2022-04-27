@@ -4,7 +4,6 @@
   background-color: var(--darkGray);
   color: var(--white);
   border-radius: .5rem;
-
   position: relative;
 }
 
@@ -59,6 +58,15 @@
   letter-spacing: 1px;
 }
 
+.datepicker {
+  padding: 1rem 0;
+  color: var(--white);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  border: 0;
+  background-color: transparent;
+}
+
 .select {
   display: flex;
   width: 100%;
@@ -74,6 +82,7 @@
   outline: 1px solid var(--blue);
 }
 
+.datepicker:focus,
 .create-form__div > input:focus,
 .create-form__div > fieldset > input:focus {
   border-bottom: 1px solid var(--blue);
@@ -81,7 +90,8 @@
   outline: none;
 }
 
-.create-form__div > input:hover {
+.create-form__div > input:hover,
+.create-form__div > fieldset > input:hover {
   border-bottom: 1px solid var(--blue);
   margin-bottom: -1px;
 }
@@ -115,7 +125,6 @@
   padding: 1rem 2rem;
   color: var(--white);
   background-color: rgba(32, 141, 235, .5);
-  /*background*/
   font-size: 18px;
   font-weight: bold;
   border: none;
@@ -126,3 +135,4 @@
 .create-form__btn:hover {
   background-color: rgba(32, 141, 235, 1);
 }
+

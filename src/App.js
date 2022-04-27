@@ -1,16 +1,17 @@
 import React, {Fragment, useEffect, useState} from "react"
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom"
 
-import './App.css';
+import './App.css'
 
-import Homepage from "./Pages/Homepage"
-import CurrentEmployees from "./Pages/CurrentEmployees"
+// import {Modal} from "devb0x-react-modal"
 import Modal from "./UI/Modal"
+
+import CurrentEmployees from "./Pages/CurrentEmployees"
 import Header from "./Components/Header/Header"
 import CreateEmployee from "./Components/CreateEmployee/CreateEmployee"
 
 function App() {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(true)
   const [employees, setEmployees] = useState([])
 
   function saveEmployee(val) {
@@ -30,12 +31,15 @@ function App() {
   return (
     <Fragment>
       <Modal
+        title={"Employee successfully added"}
+        textMessage={"The new employee was created !"}
         show={showModal}
-        closeBtn={true}
         close={() => {setShowModal(false)}}
         padding={'10%'}
+        closeBtn={true}
       />
       <Router>
+        <Header />
         <Routes>
           <Route
             exact path={'/'}
@@ -44,18 +48,19 @@ function App() {
           <Route
             exact path={'/homepage'}
             element={
-            <Fragment>
-              <Header />
               <CreateEmployee
                 displayModal={ () => {setShowModal(true)} }
                 setEmployee={saveEmployee}
               />
-            </Fragment>
-          }
+            }
           />
           <Route
             exact path={'/employees'}
             element={ <CurrentEmployees  employees={employees} /> }
+          />
+          <Route
+            path={'*'}
+            element={ <Navigate to="/homepage" replace /> }
           />
         </Routes>
       </Router>
@@ -63,4 +68,4 @@ function App() {
   )
 }
 
-export default App;
+export default App
