@@ -11,7 +11,7 @@ import Header from "./Components/Header/Header"
 import CreateEmployee from "./Components/CreateEmployee/CreateEmployee"
 
 function App() {
-  const [showModal, setShowModal] = useState(true)
+  const [showModal, setShowModal] = useState(false)
   const [employees, setEmployees] = useState([])
 
   function saveEmployee(val) {

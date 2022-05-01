@@ -248,7 +248,7 @@ const CreateEmployee = (props) => {
     }
   ];
 
-  const { register, handleSubmit, control } = useForm({
+  const { register, handleSubmit, control, reset } = useForm({
     mode: 'onChange',
     defaultValues: {
       birthDate: '',
@@ -268,6 +268,7 @@ const CreateEmployee = (props) => {
     const date2 = format(data.startDate, 'yyyy-MM-dd')
     props.setEmployee({...data, birthDate: date1, startDate: date2})
     props.displayModal(true)
+    reset()
   }
 
   const CustomDatePicker = (props) => {

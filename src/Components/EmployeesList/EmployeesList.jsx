@@ -17,10 +17,6 @@ const EmployeesList = (props) => {
   )
 
   const columns = React.useMemo(
-  //   By default, the sorting will be alphanumeric. This can be changed in your column
-  //   object. Other options include basic and datetime. Note that if you're
-  //   planning on sorting numbers between 0 and 1, basic sorting will be more accurate.
-
     () => [
       {
         Header: 'First Name',
@@ -66,7 +62,6 @@ const EmployeesList = (props) => {
 
   const defaultColumn = React.useMemo(
     () => ({
-      // Let's set up our default Filter UI
       Filter: DefaultColumnFilter,
     }),
     []
@@ -99,7 +94,8 @@ const EmployeesList = (props) => {
     useFilters,
     useGlobalFilter,
     useSortBy,
-    usePagination)
+    usePagination
+  )
 
   useEffect(() => {
     setPageSize(8)
@@ -176,6 +172,7 @@ const EmployeesList = (props) => {
         <thead style={{display: 'table-header-group'}}>
         <tr className={`${classes['table-row__filter']}`} role={"row"}>
           <th style={{display: 'flex', alignItems: 'center', width: '40%', marginRight: 'auto'}}>
+          {/*<th style={{display: 'flex'}}>*/}
             Show
             <select
               className={classes['select-entries']}
@@ -192,6 +189,7 @@ const EmployeesList = (props) => {
             </select> entries
           </th>
           <th style={{display: 'flex', alignItems: 'center', width: '40%', marginLeft: 'auto'}}>
+          {/*<th style={{display: 'flex'}}>*/}
             <GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
               globalFilter={state.globalFilter}

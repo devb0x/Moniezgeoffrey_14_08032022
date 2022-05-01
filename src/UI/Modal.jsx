@@ -62,5 +62,6 @@ Modal.propTypes = {
   close: PropTypes.func,
   padding: PropTypes.string,
   title: PropTypes.string,
-  textMessage: PropTypes.string
+  textMessage: PropTypes.string,
+  closeBtn: PropTypes.bool
 }
