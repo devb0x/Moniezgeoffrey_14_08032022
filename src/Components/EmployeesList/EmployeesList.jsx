@@ -170,8 +170,10 @@ const EmployeesList = (props) => {
       <table {...getTableProps()} className={`${classes['table']}`}>
 
         <thead style={{display: 'table-header-group'}}>
-        <tr className={`${classes['table-row__filter']}`} role={"row"}>
-          <th style={{display: 'flex', alignItems: 'center', width: '40%', marginRight: 'auto'}}>
+        {/*<tr className={`${classes['table-row__filter']}`} role={"row"}>*/}
+        <tr>
+          {/*<th style={{display: 'flex', alignItems: 'center', width: '40%', marginRight: 'auto'}}>*/}
+          <th>
           {/*<th style={{display: 'flex'}}>*/}
             Show
             <select
@@ -188,7 +190,8 @@ const EmployeesList = (props) => {
               ))}
             </select> entries
           </th>
-          <th style={{display: 'flex', alignItems: 'center', width: '40%', marginLeft: 'auto'}}>
+          {/*<th style={{display: 'flex', alignItems: 'center', width: '40%', marginLeft: 'auto'}}>*/}
+          <th>
           {/*<th style={{display: 'flex'}}>*/}
             <GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
