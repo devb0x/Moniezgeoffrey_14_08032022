@@ -174,7 +174,6 @@ const EmployeesList = (props) => {
         <tr>
           {/*<th style={{display: 'flex', alignItems: 'center', width: '40%', marginRight: 'auto'}}>*/}
           <th>
-          {/*<th style={{display: 'flex'}}>*/}
             Show
             <select
               className={classes['select-entries']}
@@ -192,7 +191,6 @@ const EmployeesList = (props) => {
           </th>
           {/*<th style={{display: 'flex', alignItems: 'center', width: '40%', marginLeft: 'auto'}}>*/}
           <th>
-          {/*<th style={{display: 'flex'}}>*/}
             <GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
               globalFilter={state.globalFilter}

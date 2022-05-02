@@ -264,6 +264,7 @@ const CreateEmployee = (props) => {
   })
 
   const submitHandler = (data) => {
+    console.log('form is submit')
     const date1 = format(data.birthDate, 'yyyy-MM-dd')
     const date2 = format(data.startDate, 'yyyy-MM-dd')
     props.setEmployee({...data, birthDate: date1, startDate: date2})
@@ -307,7 +308,13 @@ const CreateEmployee = (props) => {
               justifyContent: "space-around",
             }}
           >
-            <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                return decreaseMonth
+              }}
+              disabled={prevMonthButtonDisabled}
+            >
               {"<"}
             </button>
             <select
@@ -325,7 +332,8 @@ const CreateEmployee = (props) => {
 
             <select
               value={getYear(date)}
-              onChange={({ target: { value } }) => changeYear(value)}
+              onChange={({ target: { value } }) =>
+                changeYear(value)}
             >
               {years.map((option) => (
                 <option key={option} value={option}>
@@ -334,8 +342,13 @@ const CreateEmployee = (props) => {
               ))}
             </select>
 
-            <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
-              {">"}
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                return increaseMonth
+              }}
+              disabled={prevMonthButtonDisabled}
+            >              {">"}
             </button>
           </div>
         )}
